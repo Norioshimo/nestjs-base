@@ -30,16 +30,16 @@ Este proyecto se ha creado con el propósito de servir como una plantilla base p
 
 ## Documentación
 
-- [NestJS Framework](https://docs.nestjs.com/)
-- [Base de Datos - TypeORM](https://docs.nestjs.com/techniques/database)
 - [Autenticaciones usando JWT](https://docs.nestjs.com/security/authentication)
-- [Passport](https://docs.nestjs.com/recipes/passport)
-- [Funcionalidad JWT en Passport](https://docs.nestjs.com/recipes/passport#jwt-functionality)
+- [Base de Datos - TypeORM](https://docs.nestjs.com/techniques/database)
 - [Documentación en Swagger](https://docs.nestjs.com/openapi/introduction)
-- [Validaciones de Variables de Entorno - Joi](https://www.npmjs.com/package/joi)
+- [Funcionalidad JWT en Passport](https://docs.nestjs.com/recipes/passport#jwt-functionality)
+- [JWT](https://jwt.io/)
+- [NestJS Framework](https://docs.nestjs.com/)
+- [Passport](https://docs.nestjs.com/recipes/passport)
 - [Transformaciones de Datos en los Servicios - Class Transformer Validator](https://www.npmjs.com/package/class-transformer-validator)
 - [TypeORM](https://typeorm.io/)
-- [JWT](https://jwt.io/)
+- [Validaciones de Variables de Entorno - Joi](https://www.npmjs.com/package/joi)
 
 
 ## Autor
