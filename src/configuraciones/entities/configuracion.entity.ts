@@ -1,53 +1,36 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({
-    name: 'usuarios'
-})
-export class Usuario {
 
+@Entity({
+    name: 'configuraciones'
+})
+export class Configuracion {
     @PrimaryGeneratedColumn('increment')
-    id_usuario: number;
+    id_configuracion: number;
 
     @Column({
         nullable: false,
         type: 'character varying',
-        name: 'nombre_completo',
+        name: 'parametro',
         length: 50
     })
-    nombre_completo: string;
+    parametro: string;
 
     @Column({
         nullable: false,
         type: 'character varying',
-        name: 'usuario',
-        length: 20
+        name: 'valor',
+        length: 3000
     })
-    usuario: string;
+    valor: string;
 
     @Column({
-        nullable: false,
+        nullable: true,
         type: 'character varying',
-        name: 'clave',
-        select: true,
-        length: 255
+        name: 'descripcion',
+        length: 1000
     })
-    clave: string;
-
-    @Column({
-        nullable: false,
-        type: 'character varying',
-        name: 'usuario_tipo',
-        length: 1
-    })
-    usuario_tipo: string;
-
-    @Column({
-        nullable: false,
-        type: 'character varying',
-        name: 'usuario_estado',
-        length: 1
-    })
-    usuario_estado: string;
+    descripcion: string;
 
     @Column({
         nullable: false,
@@ -75,11 +58,6 @@ export class Usuario {
     })
     usuario_modificacion: number;
 
-    @Column({
-        nullable: true,
-        type: 'text',
-        name: 'email'
-    })
-    email: string;
+
 
 }

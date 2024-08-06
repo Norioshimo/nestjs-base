@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CommonModule } from './common/common.module';
 import { JoiValidationSchema, EnvConfigutarion } from './config';
 import { SeedModule } from './seed/seed.module';
+import { ConfiguracionesModule } from './configuraciones/configuraciones.module';
 
 @Module({
   imports: [AuthModule, UsuariosModule,
@@ -29,7 +30,9 @@ import { SeedModule } from './seed/seed.module';
     CommonModule,
     UsuariosModule,
 
-    SeedModule
+    SeedModule,
+
+    ConfiguracionesModule
 
   ]
 })
