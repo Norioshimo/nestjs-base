@@ -34,16 +34,16 @@ export class Configuracion {
 
     @Column({
         nullable: false,
-        name: 'fecha_inserccion'
+        name: 'fecha_insercion'
     })
-    fecha_inserccion: Date;
+    fecha_insercion: Date;
 
     @Column({
         nullable: false,
         type: 'int',
-        name: 'usuario_inserccion'
+        name: 'usuario_insercion'
     })
-    usuario_inserccion: number;
+    usuario_insercion: number;
 
     @Column({
         nullable: true,

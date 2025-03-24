@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { CreateConfiguracioneDto, UpdateConfiguracioneDto } from './dto';
-import { Usuario } from 'src/usuarios/entities';
+import { Usuario } from 'src/modules/seguridades/usuarios/entities';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Configuracion } from './entities/configuracion.entity';
@@ -27,8 +27,8 @@ export class ConfiguracionesService {
 
       const configuracion = await this.configuracionRepository.create({
         ...createConfiguracioneDto,
-        usuario_inserccion: user.id_usuario,
-        fecha_inserccion: new Date()
+        usuario_insercion: user.id_usuario,
+        fecha_insercion: new Date()
       })
 
       await this.configuracionRepository.save(configuracion)
@@ -47,7 +47,7 @@ export class ConfiguracionesService {
       skip: offset,
       select: ["id_configuracion", "parametro", "valor"],
       order: {
-        id_configuracion: "DESC" // Ordenar por id_usuario en orden descendente
+        id_configuracion: "DESC" // Ordenar por id_configuracion en orden descendente
       }
     })
 

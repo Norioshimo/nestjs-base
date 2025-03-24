@@ -39,8 +39,8 @@ export class UsuariosService {
       const usuario = await this.usuariosRepository.create({
         clave: claveEncripted,
         ...rest,
-        fecha_inserccion: new Date(),
-        usuario_inserccion: user.id_usuario//Dato del usuario autenticado.
+        fecha_insercion: new Date(),
+        usuario_insercion: user.id_usuario//Dato del usuario autenticado.
       });
 
       await this.usuariosRepository.save(usuario);

@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Usuario } from 'src/usuarios/entities';
+import { Usuario } from 'src/modules/seguridades/usuarios/entities';
 import { Repository } from 'typeorm';
 import { HashAdapter } from '../auth/adapters/sha1.adapters';
 
@@ -24,7 +24,7 @@ export class SeedService {
         });
 
         if (usuario) {
-            throw new BadRequestException(`El seed ya fue ejecutado en ${usuario.fecha_inserccion}`)
+            throw new BadRequestException(`El seed ya fue ejecutado en ${usuario.fecha_insercion}`)
         }
 
 
@@ -32,8 +32,8 @@ export class SeedService {
             nombre_completo: 'Super Admin',
             usuario: 'superAdmin',
             usuario_estado: 'A',
-            usuario_inserccion: 1,
-            fecha_inserccion: new Date(),
+            usuario_insercion: 1,
+            fecha_insercion: new Date(),
             usuario_tipo: 'A',
             clave: this.hashAdapter.sha1('123')
         }

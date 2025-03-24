@@ -1,7 +1,7 @@
 import { BadRequestException, Body, Get, Injectable, Post, UnauthorizedException } from '@nestjs/common';
 import { LoginUserDto } from './dto';
 import { Repository } from 'typeorm';
-import { Usuario } from 'src/usuarios/entities';
+import { Usuario } from 'src/modules/seguridades/usuarios/entities';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtPayload } from './interfaces';
 import { JwtService } from '@nestjs/jwt';

@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
-import { UsuariosModule } from './usuarios/usuarios.module';
+import { UsuariosModule } from './modules/seguridades/usuarios/usuarios.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CommonModule } from './common/common.module';
 import { JoiValidationSchema, EnvConfigutarion } from './config';
 import { SeedModule } from './seed/seed.module';
-import { ConfiguracionesModule } from './configuraciones/configuraciones.module';
+import { ConfiguracionesModule } from './modules/seguridades/configuraciones/configuraciones.module';
+import { ProgramasModule } from './modules/seguridades/programas/programas.module';
 
 @Module({
   imports: [AuthModule, UsuariosModule,
@@ -32,7 +33,9 @@ import { ConfiguracionesModule } from './configuraciones/configuraciones.module'
 
     SeedModule,
 
-    ConfiguracionesModule
+    ConfiguracionesModule,
+
+    ProgramasModule
 
   ]
 })

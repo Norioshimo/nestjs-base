@@ -14,6 +14,8 @@ Este proyecto se ha creado con el propósito de servir como una plantilla base p
 
 - Autenticación
 - Usuario
+- Configuraciones
+- Programas
 - Roles y Permisos (En desarrollo)
 - Reportes (En desarrollo)
 
@@ -23,7 +25,7 @@ Este proyecto se ha creado con el propósito de servir como una plantilla base p
 2. Instalar las dependencias: `yarn install`
 3. Clonar el archivo `.env.template` y renombrarlo a `.env`. Cambiar los valores de las variables de entorno según sea necesario.
 4. Iniciar el proyecto en modo desarrollo: `yarn start:dev`
-5. Ejecutar `localhost:3000/api/seed` para crear un superAdmin con la clave `123`.
+5. Ejecutar `localhost:3000/api/seed` para crear un `superAdmin` con la clave `123`.
 6. La documentación Swagger se encuentra en `localhost:3000/api`.
 
 
