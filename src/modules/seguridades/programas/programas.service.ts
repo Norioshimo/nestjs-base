@@ -1,12 +1,11 @@
 import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
-import { CreateProgramaDto } from './dto/create-programa.dto';
-import { UpdateProgramaDto } from './dto/update-programa.dto';
 import { Programa } from './entities/programa.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { Usuario } from '../usuarios/entities';
+import { CreateProgramaDto, UpdateProgramaDto } from './dto';
 
 @Injectable()
 export class ProgramasService {

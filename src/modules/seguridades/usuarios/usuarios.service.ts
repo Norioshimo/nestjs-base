@@ -4,8 +4,7 @@ import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { Usuario } from './entities';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ConfigService } from '@nestjs/config';
-import * as crypto from 'crypto';
+import { ConfigService } from '@nestjs/config'; 
 import { HashAdapter } from 'src/auth/adapters/sha1.adapters';
 import { UpdateClaveDto } from './dto/update-clave.dto';
 
@@ -59,9 +58,20 @@ export class UsuariosService {
     const usuarios = await this.usuariosRepository.find({
       take: limit,
       skip: offset,
-      select: ["id_usuario", "nombre_completo", "usuario", "usuario_tipo", "usuario_estado", "email"],
       order: {
         id_usuario: "DESC" // Ordenar por id_usuario en orden descendente
+      },
+      relations: ["rol"],
+      select: {
+        id_usuario: true,
+        usuario: true,
+        nombre_completo:true,
+        usuario_tipo:true,
+        usuario_estado:true,
+        rol: {
+          id_rol: true,
+          nombre: true,
+        }
       }
     })
 
@@ -69,8 +79,15 @@ export class UsuariosService {
   }
 
   async findOne(id: number) {
-    const usuario = await this.usuariosRepository.findOneBy({
-      id_usuario: id
+    const usuario = await this.usuariosRepository.findOne({
+      where: { id_usuario: id },
+      relations: ["rol"],
+      select: {
+        rol: {
+          id_rol: true,
+          nombre: true,
+        },
+      },
     })
 
     if (!usuario) {
@@ -137,9 +154,9 @@ export class UsuariosService {
 
     const usuario = await this.usuariosRepository.preload({ id_usuario, ...updateClaveDto });
 
-    try{
+    try {
       await this.usuariosRepository.save(usuario);
-    }catch(error){
+    } catch (error) {
       this.handleDBExceptions(error);
     }
 

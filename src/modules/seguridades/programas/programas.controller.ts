@@ -1,11 +1,10 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Logger, UseGuards, Query, ParseIntPipe } from '@nestjs/common';
 import { ProgramasService } from './programas.service';
-import { CreateProgramaDto } from './dto/create-programa.dto';
-import { UpdateProgramaDto } from './dto/update-programa.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { Usuario } from '../usuarios/entities';
 import { GetUser } from 'src/auth/decorators';
+import { CreateProgramaDto, UpdateProgramaDto } from './dto';
 
 @Controller('programas')
 export class ProgramasController {

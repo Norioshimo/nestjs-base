@@ -7,7 +7,8 @@ import { CommonModule } from './common/common.module';
 import { JoiValidationSchema, EnvConfigutarion } from './config';
 import { SeedModule } from './seed/seed.module';
 import { ConfiguracionesModule } from './modules/seguridades/configuraciones/configuraciones.module';
-import { ProgramasModule } from './modules/seguridades/programas/programas.module';
+import { ProgramasModule } from './modules/seguridades/programas/programas.module'; 
+import { RolesModule } from './modules/seguridades/roles/roles.module';
 
 @Module({
   imports: [AuthModule, UsuariosModule,
@@ -35,7 +36,9 @@ import { ProgramasModule } from './modules/seguridades/programas/programas.modul
 
     ConfiguracionesModule,
 
-    ProgramasModule
+    ProgramasModule,
+
+    RolesModule
 
   ]
 })
