@@ -87,5 +87,5 @@ export class Usuario {
     @JoinColumn({
         name: "id_rol"
     })
-    rol: Rol;
+    idRol: Rol;
 }

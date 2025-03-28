@@ -4,7 +4,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/decorators';
 import { Usuario } from '../usuarios/entities';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
-import { CreateRoleDto, UpdateRoleDto } from './dto';
+import { CreateRolDto, UpdateRolDto } from './dto';
 
 @Controller('roles')
 export class RolesController {
@@ -14,7 +14,7 @@ export class RolesController {
 
   @Post()
   @UseGuards(AuthGuard())
-  create(@Body() createRoleDto: CreateRoleDto, @GetUser() user: Usuario) {
+  create(@Body() createRoleDto: CreateRolDto, @GetUser() user: Usuario) {
     return this.rolesService.create(createRoleDto, user);
   }
 
@@ -32,7 +32,7 @@ export class RolesController {
 
   @Patch(':id')
   @UseGuards(AuthGuard())
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateRoleDto: UpdateRoleDto, @GetUser() user: Usuario) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateRoleDto: UpdateRolDto, @GetUser() user: Usuario) {
     return this.rolesService.update(id, updateRoleDto, user);
   }
 

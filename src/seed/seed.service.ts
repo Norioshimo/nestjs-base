@@ -60,7 +60,7 @@ export class SeedService {
             // Insertar usuario
             const usuario = await this.usuarioRepository.create({
                 ...userIns,
-                rol: rolNew
+                idRol: rolNew
             })
 
             const usuarioNew = await this.usuarioRepository.save(usuario)//Guardar en la base de datos.

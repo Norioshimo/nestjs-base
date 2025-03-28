@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Usuario } from "../../usuarios/entities";
+import { Rolprograma } from "./rolprograma.entity";
 
 
 @Entity({
@@ -52,6 +53,9 @@ export class Rol {
     })
     usuario_modificacion: number;
 
-    @OneToMany(() => Usuario, (usuario) => usuario.rol)
+    @OneToMany(() => Usuario, (usuario) => usuario.idRol)
     usuarios: Usuario[];
+
+    @OneToMany(() => Rolprograma, (rolprograma) => rolprograma.idRol )
+    rolprogramas: Rolprograma[];
 }

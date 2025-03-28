@@ -4,9 +4,11 @@ import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { Usuario } from './entities';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ConfigService } from '@nestjs/config'; 
+import { ConfigService } from '@nestjs/config';
 import { HashAdapter } from 'src/auth/adapters/sha1.adapters';
 import { UpdateClaveDto } from './dto/update-clave.dto';
+import { Rol } from '../roles/entities';
+import { RolesService } from '../roles/roles.service';
 
 @Injectable()
 export class UsuariosService {
@@ -18,33 +20,49 @@ export class UsuariosService {
     @InjectRepository(Usuario)
     private readonly usuariosRepository: Repository<Usuario>,
     private readonly configService: ConfigService,
-    private readonly hashAdapter: HashAdapter
+    private readonly hashAdapter: HashAdapter,
+    private readonly rolesService: RolesService
   ) {
     this.defaultLimit = this.configService.get<number>('defaultLimit');
   }
 
   async create(createUsuarioDto: CreateUsuarioDto, user: Usuario) {
 
+
+    const { clave, id_rol, ...rest } = createUsuarioDto;
+    // Buscar rol
+    const rolRecibido = await this.rolesService.findOne(id_rol);
+
+    // Validar si existe el usuario
     const usuarioExiste = await this.usuariosRepository.findOneBy({ usuario: createUsuarioDto.usuario });
     if (usuarioExiste) {
       throw new BadRequestException(`Ya existe el usuario ${createUsuarioDto.usuario}`)
     }
 
-    const { clave, ...rest } = createUsuarioDto;
 
+
+    // Encriptar clave
     const claveEncripted = this.hashAdapter.sha1(clave);
 
     try {
+
+
       const usuario = await this.usuariosRepository.create({
         clave: claveEncripted,
         ...rest,
+        idRol: rolRecibido,
         fecha_insercion: new Date(),
-        usuario_insercion: user.id_usuario//Dato del usuario autenticado.
+        usuario_insercion: user.id_usuario // Dato del usuario autenticado.
       });
 
+
+      // Persistir en la base de datos
       await this.usuariosRepository.save(usuario);
       delete usuario.clave;
-      return { usuario };
+      delete usuario.idRol;
+
+
+      return { ...usuario, id_rol };
     } catch (error) {
       this.handleDBExceptions(error);
     }
@@ -61,14 +79,14 @@ export class UsuariosService {
       order: {
         id_usuario: "DESC" // Ordenar por id_usuario en orden descendente
       },
-      relations: ["rol"],
+      relations: ["idRol"],
       select: {
         id_usuario: true,
         usuario: true,
-        nombre_completo:true,
-        usuario_tipo:true,
-        usuario_estado:true,
-        rol: {
+        nombre_completo: true,
+        usuario_tipo: true,
+        usuario_estado: true,
+        idRol: {
           id_rol: true,
           nombre: true,
         }
@@ -81,9 +99,9 @@ export class UsuariosService {
   async findOne(id: number) {
     const usuario = await this.usuariosRepository.findOne({
       where: { id_usuario: id },
-      relations: ["rol"],
+      relations: ["idRol"],
       select: {
-        rol: {
+        idRol: {
           id_rol: true,
           nombre: true,
         },
@@ -101,14 +119,16 @@ export class UsuariosService {
 
   async update(id: number, updateUsuarioDto: UpdateUsuarioDto, user: Usuario) {
 
-    const { clave, ...rest } = updateUsuarioDto;
+    const { clave, id_rol, ...rest } = updateUsuarioDto;// Buscar rol
+    const rolRecibido = await this.rolesService.findOne(id_rol);
 
     const userUpdate = {
       id_usuario: id,
       usuario_modificacion: user.id_usuario,//Actualizar con el usuario logueado
       fecha_modificacion: new Date(),
       clave,
-      ...rest
+      ...rest,
+      idRol: rolRecibido,
     }
 
     if (clave) {
@@ -125,7 +145,7 @@ export class UsuariosService {
       await this.usuariosRepository.save(usuario);
 
       delete usuario.clave;
-      return usuario;
+      return {...usuario,id_rol};
     } catch (error) {
       this.handleDBExceptions(error);
     }
